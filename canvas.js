@@ -43,9 +43,8 @@ function anim() {
   }
   previousTime = currentTime;
 
-  // drawBackground();
-  // render();
-  drawPixel();
+  drawBackground();
+  render();
 
   window.requestAnimationFrame(anim); //마지막 줄에 호출하는게 frame드롭 방지
 }
@@ -62,6 +61,7 @@ function init() {
 function render() {
   b.move(1, 1);
   b.render(ctx);
+  drawPixel();
 }
 
 function drawPixel() {
@@ -70,7 +70,7 @@ function drawPixel() {
   for (let i = 0; i < canvas.width; i++) {
     for (let j = 0; j < canvas.height; j++) {
       let index = (i + j * canvas.width) * 4;
-      let d = dist(i, j, canvas.width / 2, canvas.height / 2);
+      let d = dist(i, j, b.x, b.y);
       for (let k = 0; k < 3; k++) {
         data[index + k] = d;
       }
