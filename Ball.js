@@ -1,13 +1,15 @@
 export class Ball {
-  constructor(x, y, r) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
+  constructor(width, height) {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.dx = Math.random() * 10 - 5;
+    this.dy = Math.random() * 10 - 5;
+    this.r = Math.random() * 20 + 10;
   }
 
-  move(dx, dy) {
-    this.x += dx;
-    this.y += dy;
+  move() {
+    this.x += this.dx;
+    this.y += this.dy;
   }
 
   render(ctx) {

@@ -55,7 +55,7 @@ function drawBackground() {
 }
 
 function init() {
-  b = new Ball(0, 0, 64);
+  b = new Ball(canvas.width, canvas.height);
 }
 
 function render() {
