@@ -50,18 +50,17 @@ function anim() {
 }
 
 function drawBackground() {
-  console.log("drawBackground", canvas.width, canvas.height);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function init() {
-  b = new Ball(canvas.width, canvas.height);
+  b = new Ball(canvas, ctx);
 }
 
 function render() {
-  b.move(1, 1);
-  b.render(ctx);
+  b.move();
   drawPixel();
+  b.render();
 }
 
 function drawPixel() {
@@ -71,8 +70,9 @@ function drawPixel() {
     for (let j = 0; j < canvas.height; j++) {
       let index = (i + j * canvas.width) * 4;
       let d = dist(i, j, b.x, b.y);
+      let col = (500 * b.r) / d;
       for (let k = 0; k < 3; k++) {
-        data[index + k] = d;
+        data[index + k] = col;
       }
       data[index + 3] = 255;
     }
