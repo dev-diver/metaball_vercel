@@ -7,7 +7,7 @@ let frameInterval;
 let currentTime, deltaTime;
 let previousTime;
 
-let b;
+let blobs = [];
 
 window.addEventListener("resize", () => setSize());
 window.addEventListener("load", () => initAnim());
@@ -54,13 +54,17 @@ function drawBackground() {
 }
 
 function init() {
-  b = new Ball(canvas, ctx);
+  for (let i = 0; i < 10; i++) {
+    blobs.push(new Ball(canvas, ctx));
+  }
 }
 
 function render() {
-  b.move();
   drawPixel();
-  b.render();
+  for (let b of blobs) {
+    b.move();
+    // b.render();
+  }
 }
 
 function drawPixel() {
@@ -69,10 +73,13 @@ function drawPixel() {
   for (let i = 0; i < canvas.width; i++) {
     for (let j = 0; j < canvas.height; j++) {
       let index = (i + j * canvas.width) * 4;
-      let d = dist(i, j, b.x, b.y);
-      let col = (500 * b.r) / d;
+      let sum = 0;
+      for (let blob of blobs) {
+        let d = dist(i, j, blob.x, blob.y);
+        sum += (150 * blob.r) / d;
+      }
       for (let k = 0; k < 3; k++) {
-        data[index + k] = col;
+        data[index + k] = sum;
       }
       data[index + 3] = 255;
     }

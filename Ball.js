@@ -4,9 +4,9 @@ export class Ball {
     this.ctx = ctx;
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.dx = Math.random() * 10 - 5;
-    this.dy = Math.random() * 10 - 5;
-    this.r = 20; //Math.random() * 20 + 10;
+    this.dx = (Math.random() * 5 + 3) * (Math.random() < 0.5 ? -1 : 1);
+    this.dy = (Math.random() * 5 + 3) * (Math.random() < 0.5 ? -1 : 1);
+    this.r = Math.random() * 10 + 40;
   }
 
   move() {
