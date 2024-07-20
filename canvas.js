@@ -43,15 +43,15 @@ function anim() {
   }
   previousTime = currentTime;
 
-  drawBackground();
-  render();
+  // drawBackground();
+  // render();
+  drawPixel();
 
   window.requestAnimationFrame(anim); //마지막 줄에 호출하는게 frame드롭 방지
 }
 
 function drawBackground() {
   console.log("drawBackground", canvas.width, canvas.height);
-  console.log("inner", window.innerWidth, window.innerHeight);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -62,4 +62,24 @@ function init() {
 function render() {
   b.move(1, 1);
   b.render(ctx);
+}
+
+function drawPixel() {
+  const imageData = ctx.createImageData(canvas.width, canvas.height);
+  const data = imageData.data;
+  for (let i = 0; i < canvas.width; i++) {
+    for (let j = 0; j < canvas.height; j++) {
+      let index = (i + j * canvas.width) * 4;
+      let d = dist(i, j, canvas.width / 2, canvas.height / 2);
+      for (let k = 0; k < 3; k++) {
+        data[index + k] = d;
+      }
+      data[index + 3] = 255;
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+}
+
+function dist(a, b, x, y) {
+  return Math.sqrt((a - x) * (a - x) + (b - y) * (b - y));
 }
